@@ -11,3 +11,51 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* task previews / list */
+.task-preview {
+  padding: 10px 16px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  border-left: 2px solid;
+  border-bottom: 1px solid;
+}
+
+.high {
+  border-color: crimson;
+}
+
+.medium {
+  border-color: gold;
+}
+
+.low {
+  border-color: #42bb46;
+}
+
+.overdue {
+  background-color: #faa094;
+  border: 2px solid #ff1e00;
+}
+
+.done {
+  background-color: rgb(202, 199, 199);
+  border: 1px solid #000000;
+}
+
+
+.high:hover {
+  box-shadow: 3px 5px 7px rgba(243, 141, 7, 0.1);
+  border-left: 5px solid crimson;
+}
+
+.medium:hover {
+  box-shadow: 3px 5px 7px rgba(243, 141, 7, 0.1);
+  border-left: 5px solid gold;
+}
+
+.low:hover {
+  box-shadow: 3px 5px 7px rgba(243, 141, 7, 0.1);
+  border-left: 5px solid #42bb46;
+}
