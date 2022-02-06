@@ -1,9 +1,13 @@
-import "./App.css";
 import Navbar from "./components/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Home from "./view/Home";
 import Tasks from "./view/Tasks";
+import TaskContextProvider from "./contexts/TaskContext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+toast.configure();
 
 function debounce(fn, ms) {
   let timer;
@@ -39,9 +43,9 @@ function App() {
 
   const renderTask = () => {
     if (dimensions.width > 1000) {
-      return <Route path="/tasks" element={<Tasks size={'normall'} />} />;
+      return <Tasks size={'normal'} />
     } else {
-      return <Route path="/tasks" element={<Tasks size={'small'} />} />;
+      return <Tasks size={'small'} />
     }
   };
 
@@ -51,7 +55,10 @@ function App() {
         <Navbar />
         <Routes>
           <Route exact path="/" element={<Home />} />
-          {renderTask()}
+          <Route path="/tasks" element={
+            <TaskContextProvider>{renderTask()}</TaskContextProvider>
+          }
+          />
         </Routes>
       </Router>
     </div>

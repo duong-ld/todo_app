@@ -35,18 +35,19 @@ class Form extends Component {
       return;
     }
 
-    if (this.props.actionName === "Store") {
-      const newTask = {
-        id: this.state.id,
-        title: this.state.title,
-        description: this.state.description,
-        dueDate: this.state.dueDate,
-        priority: this.state.priority,
-        status: this.state.status,
-      };
+    const newTask = {
+      id: this.state.id,
+      title: this.state.title,
+      description: this.state.description,
+      dueDate: this.state.dueDate,
+      priority: this.state.priority,
+      status: this.state.status,
+    };
 
-      this.props.action(newTask);
-      // reset form
+    this.props.action(newTask);
+
+    // if action is store reset form
+    if (this.props.actionName === "Store") {
       this.setState({
         id: uuid(),
         title: "",
@@ -55,23 +56,7 @@ class Form extends Component {
         priority: "Medium",
         status: "todo",
       });
-    } else if (this.props.actionName === "Update") {
-      const updatedTask = {
-        id: this.state.id,
-        title: this.state.title,
-        description: this.state.description,
-        dueDate: this.state.dueDate,
-        priority: this.state.priority,
-        status: this.state.status,
-      };
-
-      this.props.action(updatedTask);
     }
-  };
-
-  labelStyle = {
-    fontWeight: "bold",
-    float: "left",
   };
 
   render() {
@@ -88,7 +73,9 @@ class Form extends Component {
           />
         </div>
         <div className="form-group">
-          <label style={this.labelStyle}>Description</label>
+          <label style={{ fontWeight: "bold", float: "left" }}>
+            Description
+          </label>
           <textarea
             type={"text-aria"}
             className="form-control"
@@ -99,7 +86,7 @@ class Form extends Component {
           />
         </div>
         <div className="form-group">
-          <label style={this.labelStyle}>Due Date</label>
+          <label style={{ fontWeight: "bold", float: "left" }}>Due Date</label>
           <input
             type={"date"}
             className="form-control"
@@ -109,7 +96,7 @@ class Form extends Component {
           />
         </div>
         <div className="form-group">
-          <label style={this.labelStyle}>Priority</label>
+          <label style={{ fontWeight: "bold", float: "left" }}>Priority</label>
           <select
             className="form-control"
             name={"priority"}

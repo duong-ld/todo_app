@@ -22,6 +22,10 @@ code {
   border-bottom: 1px solid;
 }
 
+.App {
+  text-align: center;
+}
+
 .high {
   border-color: crimson;
 }
@@ -44,6 +48,10 @@ code {
   border: 1px solid #000000;
 }
 
+.done label {
+  text-decoration: line-through;
+}
+
 
 .high:hover {
   box-shadow: 3px 5px 7px rgba(243, 141, 7, 0.1);
@@ -58,4 +66,9 @@ code {
 .low:hover {
   box-shadow: 3px 5px 7px rgba(243, 141, 7, 0.1);
   border-left: 5px solid #42bb46;
+}
+
+.Form.LabelStyle {
+  font-weight: "bold";
+  float: "left";
 }

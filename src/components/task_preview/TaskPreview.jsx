@@ -1,12 +1,18 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Collapse } from "react-collapse";
-import Form from "./Form";
+import { TaskContext } from "../../contexts/TaskContext";
+import Form from "../Form";
+import CheckBox from "./CheckBox";
+import FunctionButton from "./FunctionButton";
 
-const TaskPreview = ({ task, onDestroy, onUpdate, onSelect }) => {
+const TaskPreview = ({ task, onSelect }) => {
+  const { dispatch } = useContext(TaskContext);
+  // "open" varible for detail form
   const [open, setOpen] = useState(false);
-  // check box
+  // "checked" varible for check label
   const [checked, setChecked] = useState(false);
-  const toggle = () => setOpen(!open);
+
+  const toggleDetail = () => setOpen(!open);
 
   const handelCheck = () => {
     onSelect(!checked, task.id);
@@ -14,8 +20,12 @@ const TaskPreview = ({ task, onDestroy, onUpdate, onSelect }) => {
   };
 
   const handleUpdate = (task) => {
-    onUpdate(task);
+    dispatch({ type: "UPDATE_TASK", task });
     setOpen(false);
+  };
+
+  const handleDestroy = (id) => {
+    dispatch({ type: "DESTROY_TASK", id });
   };
 
   const getTaskStyle = (task) => {
@@ -27,7 +37,7 @@ const TaskPreview = ({ task, onDestroy, onUpdate, onSelect }) => {
       taskStyle += " overdue";
       return taskStyle;
     }
-    
+
     // check priority
     if (task.priority === "Low") {
       taskStyle += " low";
@@ -39,49 +49,16 @@ const TaskPreview = ({ task, onDestroy, onUpdate, onSelect }) => {
     return taskStyle;
   };
 
-  const renderDestroyButton = () => {
-    if (checked) {
-      return (
-        <button
-          className="btn btn-danger btn-sm"
-          onClick={() => onDestroy(task.id)}
-          disabled
-        >
-          <i className="far fa-trash-alt"></i>
-        </button>
-      );
-    } else {
-      return (
-        <button
-          className="btn btn-danger btn-sm"
-          onClick={() => onDestroy(task.id)}
-        >
-          <i className="far fa-trash-alt"></i>
-        </button>
-      );
-    }
-  };
-
   return (
     <>
       <div className={getTaskStyle(task)} key={task.id}>
-        <div className="form-check">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            id={`checkbox-${task.id}`}
-            value={task.id}
-            checked={checked}
-            onChange={handelCheck}
-          />
-          <label className="form-check-label h5">{task.title}</label>
-        </div>
-        <div>
-          <button onClick={toggle} className="btn btn-primary btn-sm mr-2">
-            Details
-          </button>
-          {renderDestroyButton()}
-        </div>
+        <CheckBox task={task} checked={checked} handelCheck={handelCheck} />
+        <FunctionButton
+          task={task}
+          checked={checked}
+          onDestroy={handleDestroy}
+          toggleDetail={toggleDetail}
+        />
       </div>
 
       <Collapse isOpened={open}>

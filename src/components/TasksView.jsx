@@ -1,55 +1,50 @@
-import { React, useState, useCallback } from "react";
+import { React, useState, useContext } from "react";
 import TaskList from "./TaskList";
 import Search from "./Search";
 import BulkAction from "./BulkAction";
+import { TaskContext } from "../contexts/TaskContext";
 
-function TasksView({
-  size,
-  tasks,
-  onUpdate,
-  onDestroy,
-  onStore,
-  bulkDestroy,
-  bulkChange,
-}) {
+function TasksView({ size }) {
+  const { tasks, dispatch } = useContext(TaskContext);
   const [searchKey, setSearchKey] = useState("");
-  const [selectedList, setSelectedList] = useState([]);
+  const [selectedListID, setSelectedListID] = useState([]);
 
   const handleSearch = (searchKey) => {
     setSearchKey(searchKey);
   };
 
-  const handleSelectList = useCallback(
-    (selected, id) => {
-      if (selected) {
-        setSelectedList([...selectedList, id]);
-      } else {
-        setSelectedList(selectedList.filter((listId) => listId !== id));
-      }
-    },
-    [selectedList]
-  );
+  const handleSelectList = (selected, id) => {
+    if (selected) {
+      setSelectedListID([...selectedListID, id]);
+    } else {
+      setSelectedListID(selectedListID.filter((listId) => listId !== id));
+    }
+  };
 
   const handleBulkDestroy = () => {
-    bulkDestroy(selectedList);
-    setSelectedList([]);
+    dispatch({ type: "BULK_DESTROY_TASKS", selectedListID });
+    setSelectedListID([]);
   };
 
   const handleBulkChange = () => {
-    bulkChange(selectedList);
-    setSelectedList([]);
+    dispatch({ type: "BULK_UPDATE_TASKS", selectedListID });
+    setSelectedListID([]);
   };
 
   return (
     <>
-      <Search size={size} onSearch={handleSearch} onStore={onStore} />
+      <Search
+        size={size}
+        onSearch={handleSearch}
+        selectedListID={selectedListID}
+      />
 
       <div className="row">
         <div className="col-md-10 offset-md-1 col-sm-10 offset-sm-1">
           <BulkAction
             onDestroy={handleBulkDestroy}
             onChange={handleBulkChange}
-            selectedList={selectedList}
+            selectedListID={selectedListID}
           />
           <br />
           <br />
@@ -61,8 +56,6 @@ function TasksView({
               )
               .filter((task) => task.status !== "done")
               .sort((a, b) => (a.dueDate > b.dueDate ? 1 : -1))}
-            onDestroy={onDestroy}
-            onUpdate={onUpdate}
             onSelect={handleSelectList}
           />
           <hr />
@@ -76,8 +69,6 @@ function TasksView({
               )
               .filter((task) => task.status === "done")
               .sort((a, b) => (a.dueDate > b.dueDate ? 1 : -1))}
-            onDestroy={onDestroy}
-            onUpdate={onUpdate}
             onSelect={handleSelectList}
           />
         </div>
