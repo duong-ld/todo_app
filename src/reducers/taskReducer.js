@@ -27,13 +27,13 @@ export const taskReducer = (state, action) => {
 
     case "BULK_DESTROY_TASKS":
       toast.success("Task(s) deleted successfully", {
-        toastId: "destroy" + action.ids.join(","),
+        toastId: "destroy" + action.selectedListID.join(","),
       });
       return state.filter((t) => !action.selectedListID.includes(t.id));
 
     case "BULK_UPDATE_TASKS":
       toast.success("Task(s) updated successfully", {
-        toastId: "update" + action.ids.join(","),
+        toastId: "update" + action.selectedListID.join(","),
       });
       return state.map((t) => {
         if (action.selectedListID.includes(t.id)) {
