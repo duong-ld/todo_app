@@ -17,10 +17,6 @@ const Tasks = ({ size }) => {
   }, [tasks]);
 
   const handleStore = (task) => {
-    // add id to task
-    const id = localStorage.getItem("id");
-    task.id = id ? parseInt(id) + 1 : 1;
-    localStorage.setItem("id", task.id);
     setTasks([...tasks, task]);
     toast.success(`Task #${task.title} added successfully`);
   };
@@ -92,7 +88,7 @@ const Tasks = ({ size }) => {
               bulkChange={bulkChange}
             />
           </div>
-          <div style={{ width: "40%" }} className="border pb-3 m-3">
+          <div style={{ width: "40%" }}>
             <NewTask onStore={handleStore} />
           </div>
         </>

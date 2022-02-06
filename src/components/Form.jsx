@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { toast } from "react-toastify";
+import { v1 as uuid } from "uuid";
 
 class Form extends Component {
   constructor(props) {
@@ -8,7 +9,7 @@ class Form extends Component {
     var task = props.task;
 
     this.state = {
-      id: task ? task.id : "",
+      id: task ? task.id : uuid(),
       title: task ? task.title : "",
       description: task ? task.description : "",
       dueDate: task ? task.dueDate : date.toISOString().split("T")[0],
@@ -36,6 +37,7 @@ class Form extends Component {
 
     if (this.props.actionName === "Store") {
       const newTask = {
+        id: this.state.id,
         title: this.state.title,
         description: this.state.description,
         dueDate: this.state.dueDate,
@@ -44,6 +46,15 @@ class Form extends Component {
       };
 
       this.props.action(newTask);
+      // reset form
+      this.setState({
+        id: uuid(),
+        title: "",
+        description: "",
+        dueDate: new Date().toISOString().split("T")[0],
+        priority: "Medium",
+        status: "todo",
+      });
     } else if (this.props.actionName === "Update") {
       const updatedTask = {
         id: this.state.id,
