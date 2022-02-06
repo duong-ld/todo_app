@@ -34,7 +34,8 @@ const TaskPreview = ({ task, onSelect }) => {
     if (task.status === "done") {
       taskStyle += " done";
       return taskStyle;
-    } else if (Date.parse(task.dueDate) < Date.now()) {
+    }
+    if (Date.parse(task.dueDate) < Date.now()) {
       taskStyle += " overdue";
       return taskStyle;
     }

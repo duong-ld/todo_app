@@ -7,53 +7,47 @@ const Search = ({ size, onSearch, selectedListID }) => {
   const { dispatch } = useContext(TaskContext);
   const [open, setOpen] = useState(false);
 
-  const handelSearch = (e) => {
+  const handleSearch = (e) => {
     e.preventDefault();
     const searchKey = e.target.value;
     onSearch(searchKey);
   };
 
-  const handelStore = (task) => {
-    dispatch({ type: "STORE_TASK", task });
+  const handleStore = (task) => {
     setOpen(false);
+    dispatch({ type: "STORE_TASK", task });
   };
 
   const renderSearchInput = () => {
-    if (selectedListID.length === 0) {
-      return (
-        <input
-          type="text"
-          placeholder="Search"
-          className="form-control"
-          onChange={handelSearch}
-        />
-      );
-    } else {
-      return (
-        <input
-          type="text"
-          placeholder="Search"
-          className="form-control"
-          disabled
-          onChange={handelSearch}
-        />
-      );
-    }
+    return selectedListID.length === 0 ? (
+      <input
+        type="text"
+        placeholder="Search"
+        className="form-control"
+        onChange={handleSearch}
+      />
+    ) : (
+      <input
+        type="text"
+        placeholder="You can't search when selecting a task list"
+        className="form-control"
+        disabled
+        onChange={handleSearch}
+      />
+    );
   };
 
   const renderAddButton = () => {
-    if (size === "small") {
-      return (
+    return (
+      size === "small" && (
         <button
           onClick={() => (open ? setOpen(false) : setOpen(true))}
           style={{ backgroundColor: "transparent", border: "none" }}
         >
           <i className="far fa-calendar-plus fa-2x"></i>
         </button>
-      );
-    } else {
-      return null;
-    }
+      )
+    );
   };
 
   return (
@@ -66,7 +60,7 @@ const Search = ({ size, onSearch, selectedListID }) => {
         <div className="container p-3 border">
           <div className="row">
             <div className="col-md-10 offset-md-1">
-              <Form action={handelStore} actionName={"Store"} />
+              <Form action={handleStore} actionName={"Store"} />
             </div>
           </div>
         </div>
