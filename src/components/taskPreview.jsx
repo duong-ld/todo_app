@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Collapse } from "react-collapse";
-import Form from "./form";
+import Form from "./Form";
 
 const TaskPreview = ({ task, onDestroy, onUpdate, onSelect }) => {
   const [open, setOpen] = useState(false);
@@ -11,6 +11,11 @@ const TaskPreview = ({ task, onDestroy, onUpdate, onSelect }) => {
   const handelCheck = () => {
     onSelect(!checked, task.id);
     setChecked(!checked);
+  };
+
+  const handleUpdate = (task) => {
+    onUpdate(task);
+    setOpen(false);
   };
 
   const getTaskStyle = (task) => {
@@ -32,11 +37,6 @@ const TaskPreview = ({ task, onDestroy, onUpdate, onSelect }) => {
       taskStyle += " high";
     }
     return taskStyle;
-  };
-
-  const handleUpdate = (task) => {
-    onUpdate(task);
-    setOpen(false);
   };
 
   const renderDestroyButton = () => {

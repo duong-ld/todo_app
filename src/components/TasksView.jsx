@@ -1,9 +1,9 @@
 import { React, useState, useCallback } from "react";
-import TasksList from "./tasksList";
-import Search from "./search";
-import BulkAction from "./bulkAction";
+import TaskList from "./TaskList";
+import Search from "./Search";
+import BulkAction from "./BulkAction";
 
-function ShowTasks({
+function TasksView({
   size,
   tasks,
   onUpdate,
@@ -54,7 +54,7 @@ function ShowTasks({
           <br />
           <br />
           <hr />
-          <TasksList
+          <TaskList
             tasks={tasks
               .filter((task) =>
                 task.title.toLowerCase().includes(searchKey.toLowerCase())
@@ -69,7 +69,7 @@ function ShowTasks({
           <div style={{ display: "flex", alignItems: "center" }}>
             <h3>Done</h3>
           </div>
-          <TasksList
+          <TaskList
             tasks={tasks
               .filter((task) =>
                 task.title.toLowerCase().includes(searchKey.toLowerCase())
@@ -86,4 +86,4 @@ function ShowTasks({
   );
 }
 
-export default ShowTasks;
+export default TasksView;

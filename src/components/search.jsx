@@ -1,6 +1,6 @@
 import { Collapse } from "react-collapse";
 import { useState } from "react";
-import Form from "./form";
+import Form from "./Form";
 
 const Search = ({ size, onSearch, onStore }) => {
   const [open, setOpen] = useState(false);

@@ -1,6 +1,6 @@
-import TaskPreview from "./taskPreview";
+import TaskPreview from "./TaskPreview";
 
-const TasksList = ({ tasks, onDestroy, onUpdate, onSelect }) => {
+const TaskList = ({ tasks, onDestroy, onUpdate, onSelect }) => {
   if (tasks.length === 0) {
     return (
       <div
@@ -28,4 +28,4 @@ const TasksList = ({ tasks, onDestroy, onUpdate, onSelect }) => {
   );
 };
 
-export default TasksList;
+export default TaskList;

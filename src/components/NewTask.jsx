@@ -1,6 +1,6 @@
-import Form from './form';
+import Form from './Form';
 
-function AddTask({onStore}) {
+function NewTask({onStore}) {
     return (
         <>  
             <br />
@@ -17,4 +17,4 @@ function AddTask({onStore}) {
     );
 }
 
-export default AddTask;
+export default NewTask;

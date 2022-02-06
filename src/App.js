@@ -1,9 +1,9 @@
 import "./App.css";
-import Navbar from "./components/nav";
+import Navbar from "./components/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Home from "./view/home";
-import Task from "./view/task";
+import Home from "./view/Home";
+import Tasks from "./view/Tasks";
 
 function debounce(fn, ms) {
   let timer;
@@ -39,9 +39,9 @@ function App() {
 
   const renderTask = () => {
     if (dimensions.width > 1000) {
-      return <Route path="/task" element={<Task size={'normall'} />} />;
+      return <Route path="/tasks" element={<Tasks size={'normall'} />} />;
     } else {
-      return <Route path="/task" element={<Task size={'small'} />} />;
+      return <Route path="/tasks" element={<Tasks size={'small'} />} />;
     }
   };
 

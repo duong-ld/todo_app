@@ -1,15 +1,20 @@
 import { useState, useEffect } from "react";
-import AddTask from "../components/addTask";
-import ShowTasks from "../components/showTasks";
+import NewTask from "../components/NewTask";
+import TasksView from "../components/TasksView";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 toast.configure();
-const Task = ({ size }) => {
+
+const Tasks = ({ size }) => {
   const [tasks, setTasks] = useState(() => {
     const tasks = localStorage.getItem("tasks");
     return tasks ? JSON.parse(tasks) : [];
   });
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   const handleStore = (task) => {
     // add id to task
@@ -58,15 +63,11 @@ const Task = ({ size }) => {
     toast.success("Task(s) changed successfully");
   };
 
-  useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
-
   const renderView = () => {
     if (size === "small") {
       return (
         <div style={{ width: "100%" }}>
-          <ShowTasks
+          <TasksView
             tasks={tasks}
             size={size}
             onDestroy={handleDestroy}
@@ -81,7 +82,7 @@ const Task = ({ size }) => {
       return (
         <>
           <div style={{ width: "50%", borderRight: "1px solid" }}>
-            <ShowTasks
+            <TasksView
               tasks={tasks}
               size={size}
               onDestroy={handleDestroy}
@@ -92,7 +93,7 @@ const Task = ({ size }) => {
             />
           </div>
           <div style={{ width: "40%" }} className="border pb-3 m-3">
-            <AddTask onStore={handleStore} />
+            <NewTask onStore={handleStore} />
           </div>
         </>
       );
@@ -106,4 +107,4 @@ const Task = ({ size }) => {
   );
 };
 
-export default Task;
+export default Tasks;
