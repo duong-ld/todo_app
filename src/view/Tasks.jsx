@@ -22,7 +22,7 @@ const Tasks = ({ size }) => {
     task.id = id ? parseInt(id) + 1 : 1;
     localStorage.setItem("id", task.id);
     setTasks([...tasks, task]);
-    toast.success("Task " + task.title + " added successfully");
+    toast.success(`Task #${task.title} added successfully`);
   };
 
   const handleDestroy = (id) => {
@@ -39,7 +39,7 @@ const Tasks = ({ size }) => {
       return t;
     });
     setTasks(newTasks);
-    toast.success("Task " + task.title + " updated successfully");
+    toast.success(`Task #${task.title} updated successfully`);
   };
 
   const bulkDestroy = (selectedList) => {
