@@ -43,9 +43,9 @@ function App() {
 
   const renderTask = () => {
     if (dimensions.width > 1000) {
-      return <Tasks size={'normal'} />
+      return <Tasks size={"normal"} />;
     } else {
-      return <Tasks size={'small'} />
+      return <Tasks size={"small"} />;
     }
   };
 
@@ -55,9 +55,9 @@ function App() {
         <Navbar />
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route path="/tasks" element={
-            <TaskContextProvider>{renderTask()}</TaskContextProvider>
-          }
+          <Route
+            path="/tasks"
+            element={<TaskContextProvider>{renderTask()}</TaskContextProvider>}
           />
         </Routes>
       </Router>

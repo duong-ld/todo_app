@@ -20,11 +20,12 @@ const TaskPreview = ({ task, onSelect }) => {
   };
 
   const handleUpdate = (task) => {
-    dispatch({ type: "UPDATE_TASK", task });
     setOpen(false);
+    dispatch({ type: "UPDATE_TASK", task });
   };
 
   const handleDestroy = (id) => {
+    setOpen(false);
     dispatch({ type: "DESTROY_TASK", id });
   };
 
